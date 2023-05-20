@@ -19,7 +19,7 @@ with st.sidebar:
 #Home
 if choice == "Home":
     st.title("👋 Data Analytics Tool")
-    st.markdown("This is a very basic analytics web app project made using Streamlit. Through this app you will be able to do simple data manipulation, analysis, visualisation and prediction using regression models. Here are some basic information 👉")
+    st.markdown("This is a very basic analytics web app project made using Streamlit. Through this app you will be able to do simple data manipulation, analysis, visualisation and automatic machine learning using regression models. Here are some basic information 👉")
     st.markdown("##### Data Preprocessing")
     st.markdown("First, upload your dataset (CSV file) and explore your data through the data viewer. If you have missing values, you can choose to keep, drop, fill or impute missing values. If you only want to examine a few column, deselect the columns you'd like to remove from this analysis. Once you're satisfied with the data, just head onto either tab - your data will be stored throughout the session.")
     st.markdown("##### Data Profile Report")
@@ -58,6 +58,7 @@ if choice == "Data Upload":
                     mode_value = df[column].mode().iloc[0]
                     df[column] = df[column].fillna(mode_value)
 
+  
         drop_column = st.multiselect("Deselect Columns [Optional]", df.columns)
         df = df.drop(drop_column, axis=1)
 
