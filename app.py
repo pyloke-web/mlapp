@@ -19,6 +19,7 @@ with st.sidebar:
 #Home
 if choice == "Home":
     st.title("👋 Data Analytics Tool")
+    st.info("[UPDATE] added download button - export your data as html")
     st.markdown("This is a very basic analytics web app project made using Streamlit. Through this app you will be able to do simple data manipulation, analysis, visualisation and automatic machine learning using regression models. Here are some basic information 👉")
     st.markdown("##### Data Preprocessing")
     st.markdown("First, upload your dataset (CSV file) and explore your data through the data viewer. If you have missing values, you can choose to keep, drop, fill or impute missing values. If you only want to examine a few column, deselect the columns you'd like to remove from this analysis. Once you're satisfied with the data, just head onto either tab - your data will be stored throughout the session.")
@@ -94,11 +95,13 @@ if choice == "Profiling":
     st.info("✏️ This tool uses pandas_profiling to produce a general profile of your current dataset.")
     profile_df = df.profile_report()
     st_profile_report(profile_df)
+    export_profile = profile_df.to_html()
+    st.download_button(label='Download Data Profile', data=export_profile, file_name='profile_report.html')
 
 #Prediction
 if choice == "Prediction": 
     st.title("🔮 Machine Learning Models (Regression)")
-    st.info("✏️ This tool will run a series of regression models using pycaret on your chosen target variable and return model performance.")
+    st.info("✏️ This tool will run a series of regression models using pycaret on your chosen target variable and return model performance. Remember to preprocess your data before running the models!")
     chosen_target = st.selectbox('Choose Target Column', df.columns)
     if st.button('Run Modelling'): 
         setup(df, target=chosen_target)
@@ -108,3 +111,5 @@ if choice == "Prediction":
         compare_df = pull()
         st.dataframe(compare_df)
         save_model(best_model, 'best_model')
+        export_prediction = compare_df.to_html()
+        st.download_button(label='Download Data Profile', data=export_prediction, file_name='prediction.html')
